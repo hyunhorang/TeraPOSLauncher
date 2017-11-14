@@ -27,12 +27,19 @@ public class LauncherDAO extends MySQLMariaDBConnector {
     try {
       while(rs.next()) {
         ApplicationConfig.LAUNCHER_TYPE = resultSet.getString("launcher_type");
+        ApplicationConfig.PRINT_QUEUE_URL =  resultSet.getString("print_queue_url");
+        ApplicationConfig.SHOP_DB_NAME = resultSet.getString("shop_db_name");
+        DatabaseConfig.Queue.DATABASE = ApplicationConfig.SHOP_DB_NAME;
       }
     } catch (SQLException ex) {
       Logger.getLogger(LauncherDAO.class.getName()).log(Level.SEVERE, null, ex);
     } finally {
       this.close();
     }
+  }
+  
+  public void readReady() {
+    ResultSet rs = this.pureSQLSelect("SELECT ready FROM config");
   }
   
 }
