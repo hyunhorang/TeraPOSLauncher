@@ -11,7 +11,7 @@ import teraposlauncher.dao.QueueDAO;
 
 /**
  *
- * @author admin
+ * @author Hyun Ho Oh
  */
 public class CentOS7Server {
   
@@ -149,11 +149,13 @@ public class CentOS7Server {
   }
   
   public void openPrintQueue(boolean newWindow) {
+    /*
     String command = "firefox " + ApplicationConfig.PRINT_QUEUE_URL + " > /dev/null 2>&1 &";
     if(newWindow) {
       command = "firefox -new-window " + ApplicationConfig.PRINT_QUEUE_URL + " > /dev/null 2>&1 &";
     }
     this.runCommand(command, false);
+    */
   }
   
   private ArrayList<String> runCommand(String command, boolean result) {

@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import teraposlauncher.config.ApplicationConfig;
 import teraposlauncher.config.DatabaseConfig;
 import teraposlauncher.lib.MySQLMariaDBConnector;
 
@@ -15,11 +16,8 @@ public class QueueDAO extends MySQLMariaDBConnector {
   
   public QueueDAO() {
     super(
-      DatabaseConfig.Queue.URL, 
-      DatabaseConfig.Queue.PORT, 
-      DatabaseConfig.Queue.DATABASE, 
-      DatabaseConfig.Queue.USERNAME, 
-      DatabaseConfig.Queue.PASSWORD
+      DatabaseConfig.URL, DatabaseConfig.PORT, ApplicationConfig.DATABASE_NAME, 
+      DatabaseConfig.USERNAME, DatabaseConfig.PASSWORD
     );
   }
   
