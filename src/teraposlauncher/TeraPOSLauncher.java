@@ -57,6 +57,7 @@ public class TeraPOSLauncher {
   private void initConfig() {
     LauncherDAO launcherDAO = new LauncherDAO();
     launcherDAO.readConfig();
+    launcherDAO.readBackupDB();
   }
   
   /**

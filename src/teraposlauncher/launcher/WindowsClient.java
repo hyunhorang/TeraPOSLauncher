@@ -11,4 +11,12 @@ package teraposlauncher.launcher;
  */
 public class WindowsClient {
   
+  public WindowsClient() {
+    
+  }
+  
+  public void run() {
+    
+  }
+  
 }

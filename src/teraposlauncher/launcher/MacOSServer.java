@@ -1,7 +1,5 @@
 package teraposlauncher.launcher;
 
-import teraposlauncher.TeraPOSLauncher;
-
 /**
  *
  * @author Hyun Ho Oh
