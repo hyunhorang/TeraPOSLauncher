@@ -13,10 +13,6 @@ public class MacOSServer {
   }
   
   public void run() {
-    TeraPOSLauncher.debug("Starting MacOSServer ...");
-    
-    TeraPOSLauncher.closeFirefox();
-    TeraPOSLauncher.sleep(2000);
     
   }
   

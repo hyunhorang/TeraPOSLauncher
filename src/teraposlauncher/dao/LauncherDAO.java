@@ -28,6 +28,8 @@ public class LauncherDAO extends MySQLMariaDBConnector {
       while(rs.next()) {
         ApplicationConfig.LAUNCHER_TYPE = rs.getString("launcher_type");
         ApplicationConfig.DATABASE_NAME = rs.getString("database_name");
+        ApplicationConfig.SCREEN_RESOLUTION_WIDTH = rs.getInt("screen_resolution_width");
+        ApplicationConfig.SCREEN_RESOLUTION_HEIGHT = rs.getInt("screen_resolution_height");
       }
     } catch (SQLException ex) {
       Logger.getLogger(LauncherDAO.class.getName()).log(Level.SEVERE, null, ex);

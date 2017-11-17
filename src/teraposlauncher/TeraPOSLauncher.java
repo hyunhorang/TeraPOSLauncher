@@ -31,14 +31,14 @@ public class TeraPOSLauncher {
   public static final boolean DEBUG = true;
   
   /**
-   * Empty constructor
+   * Empty constructor.
    */
   public TeraPOSLauncher() {
     
   }
   
   /**
-   * Run the class
+   * Runs the class.
    */
   public void run() {
     TeraPOSLauncher.debug("DEBUG : on");
@@ -51,19 +51,33 @@ public class TeraPOSLauncher {
     }
   }
   
+  /**
+   * Allocates data to variables in ApplicationConfig class.
+   */
   private void initConfig() {
     LauncherDAO launcherDAO = new LauncherDAO();
     launcherDAO.readConfig();
   }
   
+  /**
+   * Validates OS type and allocates value to the ApplicationConfig.OS_TYPE.
+   */
   private void validateOS() {
     ApplicationConfig.OS_TYPE = new OSValidator().getOSType();
   }
   
+  /**
+   * Print output in the console if the debug mode is on.
+   * @param output Console output
+   */
   public static void debug(String output) {
     if(TeraPOSLauncher.DEBUG) { System.out.println(output); }
   }
   
+  /**
+   * Make the current thread sleep for certain millisecond.
+   * @param millisecond sleeping time in millisecond form
+   */
   public static void sleep(int millisecond) {
     try {
       Thread.sleep(millisecond);
@@ -72,9 +86,32 @@ public class TeraPOSLauncher {
     }
   }
   
+  /**
+   * Executes system command.
+   * @param command command to be executed
+   * @param result 
+   * @return ArrayList<String>
+   */
   public static ArrayList<String> runCommand(String command, boolean result) {
+    String pb1 = "";
+    String pb2 = "";
+    switch(ApplicationConfig.OS_TYPE) {
+      case WINDOWS:
+        pb1 = "CMD";
+        pb2 = "/C";
+        break;
+      case MAC:
+        pb1 = "/bin/bash";
+        pb2 = "-c";
+        break;
+      case UNIX:
+        pb1 = "/bin/bash";
+        pb2 = "-c";
+        break;
+      default:
+    }
     ArrayList<String> processResult = null;
-    ProcessBuilder processBuilder = new ProcessBuilder("/bin/bash", "-c", command);
+    ProcessBuilder processBuilder = new ProcessBuilder(pb1, pb2, command);
     try {
       Process process = processBuilder.start();
       boolean waitFor = false;
@@ -111,20 +148,33 @@ public class TeraPOSLauncher {
     return processResult;
   }
   
+  /**
+   * 
+   * @param url
+   * @param newWindow 
+   */
   public static void openFirefox(String url, boolean newWindow) {
     String command = "";
     if(ApplicationConfig.OS_TYPE == OSType.MAC) {
       command = "/Applications/Firefox.app/Contents/MacOS/firefox " + url;
       if(newWindow) {
-        command += "/Applications/Firefox.app/Contents/MacOS/firefox -new-window " + url;
+        command = "/Applications/Firefox.app/Contents/MacOS/fir efox -new-window " + url;
+      }
+    } else if(ApplicationConfig.OS_TYPE == OSType.UNIX) {
+      command = "firefox " + url + " > /dev/null 2>&1 &";
+      if(newWindow) {
+        command = "firefox -new-window " + url + " > /dev/null 2>&1 &";
       }
     }
     TeraPOSLauncher.runCommand(command, false);
   }
   
+  /**
+   * 
+   */
   public static void closeFirefox() {
     String command = "";
-    if(ApplicationConfig.OS_TYPE == OSType.MAC) {
+    if(ApplicationConfig.OS_TYPE == OSType.MAC || ApplicationConfig.OS_TYPE == OSType.UNIX) {
       command = "pkill firefox";
     }
     TeraPOSLauncher.runCommand(command, false);
